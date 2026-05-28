@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- SEO Standard -->
     <title>Giacomo Menegatti — Link in Bio</title>
     <meta name="description" content="Graphic Designer. Selezione di collegamenti personali e portfolio professionale.">
     <meta name="author" content="Giacomo Menegatti">
     
+    <!-- Open Graph / Meta tag per la condivisione Social -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Giacomo Menegatti — Link in Bio">
     <meta property="og:description" content="Graphic Designer. Selezione di collegamenti personali e portfolio professionale.">
@@ -19,24 +21,32 @@
 
         /* Palette Coerente con il Portfolio */
         :root {
-            --bg-color: #e6e6e6;       /* Grigio chiaro */
-            --text-color: #333333;     /* Antracite */
-            --accent-color: #707070;   /* Grigio medio */
-            --border-color: #333333;   /* Linee strutturali antracite */
+            --bg-color: #e6e6e6;       /* Hub: Grigio chiaro */
+            --text-color: #333333;     /* Hub: Antracite */
+            --accent-color: #707070;   /* Hub: Grigio medio */
+            --border-color: #333333;   
             --card-active-bg: #333333;
             --card-active-text: #e6e6e6;
             --font-main: 'Satoshi', sans-serif;
+
+            /* INTRO INVERTITA */
+            --intro-bg: #333333;       
+            --intro-text: #e6e6e6;     
         }
 
         /* Dark Mode Automatica */
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg-color: #333333;       /* Sfondo Antracite */
+                --bg-color: #333333;       /* Hub: Antracite */
                 --text-color: #e6e6e6;     /* Testo Grigio Chiaro */
                 --accent-color: #a0a0a0;   
                 --border-color: #e6e6e6;   
                 --card-active-bg: #e6e6e6;
                 --card-active-text: #333333;
+
+                /* INTRO INVERTITA */
+                --intro-bg: #e6e6e6;       
+                --intro-text: #333333;     
             }
         }
 
@@ -56,15 +66,57 @@
             min-height: 100vh;
             padding: 24px;
             -webkit-font-smoothing: antialiased;
-            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
         }
 
+        /* --- INTRO BETA 5 (Effetto Sipario) --- */
+        #intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--intro-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transform: translateY(0);
+            /* Transizione fluida e scattante per la salita del pannello */
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Quando si attiva la classe, lo sfondo schizza verso l'alto trascinando il testo */
+        #intro-screen.slide-up {
+            transform: translateY(-100%);
+        }
+
+        .intro-text {
+            color: var(--intro-text);
+            font-size: 24px;            
+            font-weight: 700;           
+            letter-spacing: -0.03em;    
+            opacity: 0;
+            transform: translateY(24px); 
+            /* L'animazione gestisce solo l'ingresso rapido, poi il testo resta fermo */
+            animation: ciaoIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes ciaoIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- HUB PRINCIPALE --- */
         .wrapper {
             width: 100%;
             max-width: 400px;
             display: flex;
             flex-direction: column;
             align-items: stretch;
+            /* Nessuna animazione di opacità qui: l'hub viene scoperto naturalmente dal sipario che sale */
         }
 
         /* Header Area */
@@ -87,7 +139,6 @@
             color: var(--accent-color);
             font-weight: 400;
             letter-spacing: -0.01em;
-            transition: color 0.4s ease;
         }
 
         /* Sezione Links */
@@ -165,12 +216,17 @@
             border-top: 1px solid var(--border-color);
             opacity: 0.5;
             padding-top: 16px;
-            transition: border-color 0.4s ease, color 0.4s ease;
         }
     </style>
 </head>
 <body>
 
+    <!-- Sipario di Intro -->
+    <div id="intro-screen">
+        <div class="intro-text">ciao</div>
+    </div>
+
+    <!-- Hub Principale (nascosto sotto il sipario, viene scoperto dal movimento) -->
     <div class="wrapper">
         <header class="header">
             <h1 class="title">Giacomo Menegatti</h1>
@@ -183,17 +239,17 @@
                 <span class="arrow">→</span>
             </a>
 
-            <a href="https://instagram.com" target="_blank" class="link-card">
+            <a href="https://www.instagram.com/giacomo_menegatti" target="_blank" class="link-card">
                 <span>Instagram</span>
                 <span class="arrow">→</span>
             </a>
             
-            <a href="https://behance.net" target="_blank" class="link-card">
+            <a href="https://www.behance.net/giacomomenegatti" target="_blank" class="link-card">
                 <span>Behance</span>
                 <span class="arrow">→</span>
             </a>
             
-            <a href="https://linkedin.com" target="_blank" class="link-card">
+            <a href="https://www.linkedin.com/in/giacomo-menegatti-80872a224" target="_blank" class="link-card">
                 <span>LinkedIn</span>
                 <span class="arrow">→</span>
             </a>
@@ -204,6 +260,18 @@
             <span>Genova</span>
         </footer>
     </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // Dopo 500ms l'intro scatta verso l'alto scoprendo la pagina
+            setTimeout(() => {
+                const intro = document.getElementById('intro-screen');
+                intro.classList.add('slide-up');
+                // Rimuove l'elemento dal codice a transizione finita (durata 0.5s)
+                setTimeout(() => intro.remove(), 500);
+            }, 500);
+        });
+    </script>
 
 </body>
 </html>
