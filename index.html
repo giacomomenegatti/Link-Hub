@@ -6,14 +6,18 @@
     
     <!-- SEO Standard -->
     <title>Giacomo Menegatti</title>
-    <meta name="description" content="Graphic Designer. Selezione di collegamenti personali e portfolio professionale.">
+    <meta name="description" content="Graphic Designer basato a Genova. Selezione di collegamenti personali e portfolio professionale.">
     <meta name="author" content="Giacomo Menegatti">
     
     <!-- Open Graph / Meta tag per la condivisione Social -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Giacomo Menegatti — Link in Bio">
-    <meta property="og:description" content="Graphic Designer. Selezione di collegamenti personali e portfolio professionale.">
-    <meta property="og:image" content="">
+    <meta property="og:title" content="Giacomo Menegatti">
+    <meta property="og:description" content="Graphic Designer basato a Genova. Selezione di collegamenti personali e portfolio professionale.">
+    <meta property="og:image" content="https://giacomomenegatti.github.io/Link-Hub/social-preview.jpg">
+
+    <!-- Favicon e Apple Touch Icon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <style>
         /* Importazione del font Satoshi */
@@ -69,7 +73,7 @@
             overflow-x: hidden;
         }
 
-        /* --- INTRO BETA 5 (Effetto Sipario) --- */
+        /* --- INTRO EFFETTO SIPARIO --- */
         #intro-screen {
             position: fixed;
             top: 0;
@@ -82,11 +86,9 @@
             align-items: center;
             z-index: 9999;
             transform: translateY(0);
-            /* Transizione fluida e scattante per la salita del pannello */
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Quando si attiva la classe, lo sfondo schizza verso l'alto trascinando il testo */
         #intro-screen.slide-up {
             transform: translateY(-100%);
         }
@@ -98,7 +100,6 @@
             letter-spacing: -0.03em;    
             opacity: 0;
             transform: translateY(24px); 
-            /* L'animazione gestisce solo l'ingresso rapido, poi il testo resta fermo */
             animation: ciaoIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
@@ -116,7 +117,6 @@
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            /* Nessuna animazione di opacità qui: l'hub viene scoperto naturalmente dal sipario che sale */
         }
 
         /* Header Area */
@@ -226,7 +226,7 @@
         <div class="intro-text">ciao</div>
     </div>
 
-    <!-- Hub Principale (nascosto sotto il sipario, viene scoperto dal movimento) -->
+    <!-- Hub Principale -->
     <div class="wrapper">
         <header class="header">
             <h1 class="title">Giacomo Menegatti</h1>
@@ -263,11 +263,9 @@
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-            // Dopo 500ms l'intro scatta verso l'alto scoprendo la pagina
             setTimeout(() => {
                 const intro = document.getElementById('intro-screen');
                 intro.classList.add('slide-up');
-                // Rimuove l'elemento dal codice a transizione finita (durata 0.5s)
                 setTimeout(() => intro.remove(), 500);
             }, 500);
         });
