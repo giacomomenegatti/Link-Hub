@@ -211,14 +211,10 @@
     </div>
 
     <script>
-        // --- SEGNAPOSTO ICONICI (Funzionano subito senza caricare file esterni) ---
-        const iconNoPic = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="%23707070" stroke-width="4"><rect x="10" y="10" width="80" height="80" rx="5"/><line x1="10" y1="10" x2="90" y2="90"/><line x1="90" y1="10" x2="10" y2="90"/><circle cx="50" cy="50" r="30"/></svg>';
-        const iconFunnyFace = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="%23707070" stroke-width="4"><circle cx="50" cy="50" r="40"/><circle cx="35" cy="40" r="5" fill="%23707070"/><circle cx="65" cy="40" r="5" fill="%23707070"/><path d="M30 70 C 40 80, 60 80, 70 70"/><path d="M35 30 L 45 35 M 65 30 L 55 35" stroke-width="3"/></svg>';
-        const iconBrokenFrame = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="%23707070" stroke-width="4"><rect x="10" y="10" width="80" height="80" fill="none"/><line x1="10" y1="10" x2="20" y2="20"/><line x1="90" y1="90" x2="80" y2="80"/><line x1="10" y1="90" x2="90" y2="10"/><path d="M10 10 L 90 90 M 10 90 L 90 10" stroke-width="6"/></svg>';
-
+       // Cancella le righe delle icone (iconNoPic, ecc.) e lascia solo questo:
+const fotoBrutte = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg'];
         // Quando vorrai usare le tue foto reali, sostituisci la riga qui sotto con i tuoi file, così:
         // const fotoBrutte = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg'];
-        const fotoBrutte = [iconNoPic, iconFunnyFace, iconBrokenFrame];
 
         const container = document.getElementById('photo-display');
         const imgTag = document.getElementById('current-photo');
