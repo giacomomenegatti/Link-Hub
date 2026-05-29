@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Giacomo Menegatti</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <style>
+        /* Importazione del font Satoshi */
+        @import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
+
+        /* Palette Identica all'Hub Principale (Beta 5) */
+        :root {
+            --bg-color: #e6e6e6;       
+            --text-color: #333333;     
+            --accent-color: #707070;   
+            --font-main: 'Satoshi', sans-serif;
+            --border-color: #333333; 
+        }
+
+        /* Dark Mode Automatica */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #333333;       
+                --text-color: #e6e6e6;     
+                --accent-color: #a0a0a0;   
+                --border-color: #e6e6e6;   
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 24px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 400px; 
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        /* Header Area — Spaziature e pesi speculari alla Home */
+        .header {
+            margin-bottom: 48px;
+            text-align: left;
+            padding-top: 12px;
+            align-self: stretch;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--accent-color);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            transition: color 0.4s ease;
+        }
+
+        /* Blocco Contenuto - Minimalismo Estremo */
+        .content-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px; 
+            margin-bottom: 48px;
+        }
+
+        /* Quadratino Foto Centrale (Senza bordi) */
+        .photo-minimal {
+            width: 80px;
+            height: 80px; 
+            background-color: transparent;
+            border: none;
+            border-radius: 12px; 
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            align-self: center;
+        }
+
+        .photo-minimal img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            transition: opacity 0.2s ease;
+        }
+
+        .photo-minimal.fading img {
+            opacity: 0;
+        }
+
+        /* Componente Freccetta SVG Calibrato (Hairline & Light) */
+        .shuffle-arrow {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: center; 
+            
+            color: var(--text-color);
+            opacity: 0.35; /* Molto chiara di base */
+            
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .shuffle-arrow svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* All'hover diventa nitida e si accende */
+        .shuffle-arrow:hover {
+            opacity: 1;   
+            transform: scale(1.05); 
+        }
+
+        .shuffle-arrow:active {
+            transform: scale(0.92); 
+            transition: transform 0.08s ease;
+        }
+
+        .shuffle-arrow:focus {
+            outline: none;
+        }
+
+        /* Footer Strutturale Speculare alla Home */
+        .footer {
+            margin-top: 64px; 
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-color);
+            border-top: 1px solid var(--border-color);
+            opacity: 0.5;
+            padding-top: 16px;
+            transition: border-color 0.4s ease, color 0.4s ease;
+            align-self: stretch;
+        }
+
+        .back-link {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--text-color);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <header class="header">
+            <h1 class="title">Ops! Sei troppo veloce</h1>
+            <p class="subtitle">Per ora guarda qualche mia foto</p>
+        </header>
+
+        <div class="content-block">
+            <div class="photo-minimal" id="photo-display">
+                <img src="" alt="Giacomo Menegatti" id="current-photo">
+            </div>
+
+            <button class="shuffle-arrow" id="shuffle-trigger" title="Cambia foto">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l.56-.56"/>
+                </svg>
+            </button>
+        </div>
+
+        <footer class="footer">
+            <a href="index.html" class="back-link">← Torna all'hub</a>
+            <span>Genova</span>
+        </footer>
+    </div>
+
+    <script>
+        // --- SEGNAPOSTO ICONICI (Funzionano subito senza caricare file esterni) ---
+        const iconNoPic = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="%23707070" stroke-width="4"><rect x="10" y="10" width="80" height="80" rx="5"/><line x1="10" y1="10" x2="90" y2="90"/><line x1="90" y1="10" x2="10" y2="90"/><circle cx="50" cy="50" r="30"/></svg>';
+        const iconFunnyFace = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="%23707070" stroke-width="4"><circle cx="50" cy="50" r="40"/><circle cx="35" cy="40" r="5" fill="%23707070"/><circle cx="65" cy="40" r="5" fill="%23707070"/><path d="M30 70 C 40 80, 60 80, 70 70"/><path d="M35 30 L 45 35 M 65 30 L 55 35" stroke-width="3"/></svg>';
+        const iconBrokenFrame = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="%23707070" stroke-width="4"><rect x="10" y="10" width="80" height="80" fill="none"/><line x1="10" y1="10" x2="20" y2="20"/><line x1="90" y1="90" x2="80" y2="80"/><line x1="10" y1="90" x2="90" y2="10"/><path d="M10 10 L 90 90 M 10 90 L 90 10" stroke-width="6"/></svg>';
+
+        // Quando vorrai usare le tue foto reali, sostituisci la riga qui sotto con i tuoi file, così:
+        // const fotoBrutte = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg'];
+        const fotoBrutte = [iconNoPic, iconFunnyFace, iconBrokenFrame];
+
+        const container = document.getElementById('photo-display');
+        const imgTag = document.getElementById('current-photo');
+        const btn = document.getElementById('shuffle-trigger');
+        let ultimaFoto = -1;
+
+        function ottieniFotoCasuale() {
+            if (fotoBrutte.length <= 1) return fotoBrutte[0];
+            let indice;
+            do {
+                indice = Math.floor(Math.random() * fotoBrutte.length);
+            } while (indice === ultimaFoto);
+            ultimaFoto = indice;
+            return fotoBrutte[indice];
+        }
+
+        function cambiaFoto() {
+            container.classList.add('fading');
+            setTimeout(() => {
+                imgTag.src = ottieniFotoCasuale();
+                imgTag.onload = () => {
+                    container.classList.remove('fading');
+                };
+            }, 200); 
+        }
+
+        // Caricamento iniziale
+        cambiaFoto();
+        btn.addEventListener('click', cambiaFoto);
+    </script>
+
+</body>
+</html>
