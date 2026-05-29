@@ -93,13 +93,13 @@
             margin-bottom: 48px;
         }
 
-        /* Quadratino Foto Centrale (Senza bordi) */
+        /* Quadratino Foto Centrale — Ottimizzato a 160x160px */
         .photo-minimal {
-            width: 80px;
-            height: 80px; 
+            width: 160px;
+            height: 160px; 
             background-color: transparent;
             border: none;
-            border-radius: 12px; 
+            border-radius: 18px; 
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -111,7 +111,7 @@
         .photo-minimal img {
             width: 100%;
             height: 100%;
-            object-fit: contain; 
+            object-fit: cover; /* Taglio pieno e geometrico senza deformazioni */
             transition: opacity 0.2s ease;
         }
 
@@ -131,7 +131,7 @@
             align-self: center; 
             
             color: var(--text-color);
-            opacity: 0.35; /* Molto chiara di base */
+            opacity: 0.35; 
             
             transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                         transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -142,7 +142,6 @@
             height: 18px;
         }
 
-        /* All'hover diventa nitida e si accende */
         .shuffle-arrow:hover {
             opacity: 1;   
             transform: scale(1.05); 
@@ -211,10 +210,8 @@
     </div>
 
     <script>
-       // Cancella le righe delle icone (iconNoPic, ecc.) e lascia solo questo:
-const fotoBrutte = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg'];
-        // Quando vorrai usare le tue foto reali, sostituisci la riga qui sotto con i tuoi file, così:
-        // const fotoBrutte = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg'];
+        // Array dei file reali caricati nella root di GitHub
+        const fotoBrutte = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg'];
 
         const container = document.getElementById('photo-display');
         const imgTag = document.getElementById('current-photo');
@@ -233,15 +230,27 @@ const fotoBrutte = ['foto1.jpg', 'foto2.jpg', 'foto3.jpg'];
 
         function cambiaFoto() {
             container.classList.add('fading');
+            
             setTimeout(() => {
-                imgTag.src = ottieniFotoCasuale();
+                const prossimaFoto = ottieniFotoCasuale();
+                
+                // 1. Definiamo i gestori eventi PRIMA di cambiare la sorgente
                 imgTag.onload = () => {
                     container.classList.remove('fading');
                 };
+                
+                imgTag.onerror = () => {
+                    container.classList.remove('fading'); // Evita il blocco ad opacità zero se il file fallisce
+                    console.error("Errore di caricamento sul file: " + prossimaFoto);
+                };
+                
+                // 2. Solo adesso cambiamo la src
+                imgTag.src = prossimaFoto;
+                
             }, 200); 
         }
 
-        // Caricamento iniziale
+        // Caricamento iniziale automatico
         cambiaFoto();
         btn.addEventListener('click', cambiaFoto);
     </script>
